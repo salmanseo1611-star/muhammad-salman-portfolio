@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Muhammad Salman</title>
+
+<style>
+:root{
+    --bg:#07111f;
+    --soft:#0b1728;
+    --card:#0d1c30;
+    --text:#f2f7ff;
+    --muted:#a9b8ca;
+    --primary:#60a5fa;
+    --primary2:#2563eb;
+    --secondary:#7c3aed;
+    --green:#4ade80;
+    --red:#f87171;
+    --border:rgba(96,165,250,.18);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%,rgba(37,99,235,.18),transparent 28%),
+        radial-gradient(circle at 90% 70%,rgba(124,58,237,.16),transparent 28%),
+        var(--bg);
+    color:var(--text);
+}
+
+/* NAVBAR */
+
+.top{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(7,17,31,.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    width:min(1250px,92%);
+    margin:auto;
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    font-size:21px;
+    font-weight:900;
+}
+
+.brand span{
+    color:var(--primary);
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    border-radius:11px;
+    padding:10px 15px;
+    font-weight:800;
+    cursor:pointer;
+    text-decoration:none;
+    transition:.25s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(96,165,250,.5);
+}
+
+.btn.primary{
+    background:linear-gradient(135deg,var(--primary2),var(--secondary));
+    border:0;
+    color:#fff;
+}
+
+.btn.danger{
+    color:#fff;
+    background:rgba(127,29,29,.35);
+    border-color:rgba(248,113,113,.25);
+}
+
+.btn.danger:hover{
+    background:rgba(185,28,28,.55);
+    border-color:rgba(248,113,113,.55);
+}
+
+/* MAIN */
+
+.wrap{
+    width:min(1250px,92%);
+    margin:0 auto;
+    padding:45px 0 80px;
+}
+
+/* HERO */
+
+.hero{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:28px;
+}
+
+.eyebrow{
+    font-size:12px;
+    color:var(--primary);
+    font-weight:900;
+    letter-spacing:1.2px;
+}
+
+.hero h1{
+    font-size:clamp(34px,5vw,54px);
+    margin:6px 0 8px;
+}
+
+.hero p{
+    color:var(--muted);
+    line-height:1.6;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-bottom:22px;
+}
+
+.stat{
+    background:rgba(13,28,48,.84);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 15px 40px rgba(0,0,0,.16);
+    transition:.25s ease;
+}
+
+.stat:hover{
+    transform:translateY(-3px);
+    border-color:rgba(96,165,250,.35);
+}
+
+.stat strong{
+    display:block;
+    font-size:30px;
+    color:var(--primary);
+    margin-bottom:5px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* PANEL */
+
+.panel{
+    background:rgba(13,28,48,.84);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 20px 60px rgba(0,0,0,.18);
+}
+
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.panel-head h2{
+    font-size:22px;
+}
+
+.status{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* TOOLS */
+
+.tools{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    padding:13px 15px 13px 42px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#071525;
+    color:var(--text);
+    outline:none;
+    font-size:14px;
+}
+
+.search input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(96,165,250,.1);
+}
+
+.search-icon{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--primary);
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow:auto;
+    border-radius:14px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
+}
+
+th,
+td{
+    text-align:left;
+    padding:14px 12px;
+    border-bottom:1px solid rgba(96,165,250,.1);
+    vertical-align:top;
+}
+
+th{
+    font-size:11px;
+    color:var(--primary);
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    background:rgba(7,17,31,.4);
+}
+
+td{
+    font-size:14px;
+    color:#dbeafe;
+}
+
+td.message{
+    white-space:pre-wrap;
+    line-height:1.6;
+    max-width:420px;
+}
+
+td.email{
+    color:#93c5fd;
+}
+
+/* DELETE */
+
+.delete-btn{
+    border:1px solid rgba(248,113,113,.25);
+    background:rgba(127,29,29,.25);
+    color:#fca5a5;
+    border-radius:9px;
+    padding:7px 10px;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.delete-btn:hover{
+    background:rgba(185,28,28,.5);
+    color:#fff;
+    border-color:rgba(248,113,113,.5);
+}
+
+/* EMPTY / ERROR */
+
+.empty{
+    padding:45px 20px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.empty-icon{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.error{
+    color:var(--red);
+}
+
+/* FOOTER */
+
+.footer-note{
+    text-align:center;
+    color:#718198;
+    font-size:11px;
+    margin-top:25px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .nav{
+        min-height:70px;
+    }
+
+    .brand{
+        font-size:16px;
+    }
+
+    .actions{
+        gap:6px;
+    }
+
+    .btn{
+        padding:9px 10px;
+        font-size:12px;
+    }
+
+    .wrap{
+        padding-top:30px;
+    }
+
+    .hero{
+        display:block;
+    }
+
+    .hero .btn{
+        margin-top:16px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .panel{
+        padding:16px;
+    }
+
+    .panel-head{
+        align-items:flex-start;
+    }
+
+    .search{
+        min-width:100%;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        transition:none!important;
+        animation:none!important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+
+    <div class="nav">
+
+        <div class="brand">
+            Muhammad <span>Salman</span> · Dashboard
+        </div>
+
+        <div class="actions">
+
+            <a
+                class="btn"
+                href="index.html"
+            >
+                Portfolio
+            </a>
+
+            <button
+                class="btn primary"
+                id="logout"
+                type="button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="wrap">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div>
+
+            <div class="eyebrow">
+                PRIVATE ADMIN AREA
+            </div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Manage and review messages received through your portfolio contact form.
+            </p>
+
+        </div>
+
+        <button
+            class="btn"
+            id="refresh"
+            type="button"
+        >
+            ↻ Refresh
+        </button>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <strong id="total">
+                —
+            </strong>
+
+            <span>
+                Total Messages
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="today">
+                —
+            </strong>
+
+            <span>
+                Messages Today
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            <strong id="latest">
+                —
+            </strong>
+
+            <span>
+                Latest Message
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- MESSAGES -->
+
+    <section class="panel">
+
+        <div class="panel-head">
+
+            <h2>
+                Contact Messages
+            </h2>
+
+            <div
+                class="status"
+                id="status"
+            >
+                Loading...
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH + REFRESH -->
+
+        <div class="tools">
+
+            <div class="search">
+
+                <span class="search-icon">
+                    🔍
+                </span>
+
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Search name, email or message..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button
+                class="btn"
+                id="refresh2"
+                type="button"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+
+        <div
+            id="content"
+            class="table-wrap"
+        ></div>
+
+    </section>
+
+
+    <div class="footer-note">
+        Muhammad Salman · Private Portfolio Dashboard
+    </div>
+
+</main>
+
+
+<script>
+
+const content = document.getElementById("content");
+const status = document.getElementById("status");
+const search = document.getElementById("search");
+
+let allMessages = [];
+
+
+/* Safe HTML */
+
+function esc(value){
+
+    return String(value ?? "").replace(
+        /[&<>"']/g,
+        char => ({
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[char])
+    );
+
+}
+
+
+/* Format Date */
+
+function formatDate(date){
+
+    const d = new Date(date);
+
+    if(Number.isNaN(d.getTime())){
+        return "Unknown";
+    }
+
+    return d.toLocaleString();
+
+}
+
+
+/* Check Today */
+
+function isToday(date){
+
+    const d = new Date(date);
+    const now = new Date();
+
+    return (
+        d.getFullYear() === now.getFullYear() &&
+        d.getMonth() === now.getMonth() &&
+        d.getDate() === now.getDate()
+    );
+
+}
+
+
+/* Render Messages */
+
+function renderMessages(data){
+
+    if(!data.length){
+
+        content.innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📭
+                </div>
+
+                <div>
+                    No contact messages found.
+                </div>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    content.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${
+                    data
+                    .map((x,index) => `
+
+                        <tr>
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+                            <td>
+                                ${esc(x.name)}
+                            </td>
+
+                            <td class="email">
+                                ${esc(x.email)}
+                            </td>
+
+                            <td class="message">
+                                ${esc(x.message)}
+                            </td>
+
+                            <td>
+                                ${esc(formatDate(x.date))}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="delete-btn"
+                                    type="button"
+                                    onclick="deleteMessage('${esc(x.id ?? index)}')"
+                                >
+                                    🗑 Delete
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    `)
+                    .join("")
+                }
+
+            </tbody>
+
+        </table>
+    `;
+
+}
+
+
+/* Search */
+
+function filterMessages(){
+
+    const query = search.value.trim().toLowerCase();
+
+    if(!query){
+
+        renderMessages(allMessages.slice().reverse());
+
+        status.textContent =
+            allMessages.length +
+            " message" +
+            (allMessages.length === 1 ? "" : "s");
+
+        return;
+
+    }
+
+
+    const filtered = allMessages.filter(x => {
+
+        return (
+            String(x.name ?? "").toLowerCase().includes(query) ||
+            String(x.email ?? "").toLowerCase().includes(query) ||
+            String(x.message ?? "").toLowerCase().includes(query)
+        );
+
+    });
+
+
+    renderMessages(filtered.slice().reverse());
+
+    status.textContent =
+        filtered.length +
+        " result" +
+        (filtered.length === 1 ? "" : "s");
+
+}
+
+
+/* Load Messages */
+
+async function load(){
+
+    status.textContent = "Loading...";
+
+    try{
+
+        const response =
+            await fetch("/api/messages", {
+                credentials:"same-origin"
+            });
+
+
+        if(response.status === 401){
+
+            location.href = "signin.html";
+
+            return;
+
+        }
+
+
+        if(!response.ok){
+
+            throw new Error("Unable to load messages.");
+
+        }
+
+
+        const data = await response.json();
+
+        allMessages =
+            Array.isArray(data) ? data : [];
+
+
+        /* Total */
+
+        document.getElementById("total").textContent =
+            allMessages.length;
+
+
+        /* Today */
+
+        const todayCount =
+            allMessages.filter(x => isToday(x.date)).length;
+
+        document.getElementById("today").textContent =
+            todayCount;
+
+
+        /* Latest */
+
+        if(allMessages.length){
+
+            const latest =
+                allMessages
+                .slice()
+                .sort(
+                    (a,b) =>
+                    new Date(b.date) - new Date(a.date)
+                )[0];
+
+            document.getElementById("latest").textContent =
+                new Date(latest.date).toLocaleDateString();
+
+        }else{
+
+            document.getElementById("latest").textContent =
+                "—";
+
+        }
+
+
+        filterMessages();
+
+    }catch(error){
+
+        content.innerHTML = `
+            <div class="empty error">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                Dashboard server is not available.
+                Start <b>server.js</b> and open the dashboard
+                through localhost.
+
+            </div>
+        `;
+
+        status.textContent =
+            "Connection error";
+
+    }
+
+}
+
+
+/* Delete Message */
+
+async function deleteMessage(id){
+
+    const message =
+        allMessages.find(x =>
+            String(x.id ?? "") === String(id)
+        );
+
+
+    if(!message){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this message?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch("/api/messages/" + encodeURIComponent(id), {
+
+                method:"DELETE",
+
+                credentials:"same-origin"
+
+            });
+
+
+        if(response.status === 401){
+
+            location.href = "signin.html";
+
+            return;
+
+        }
+
+
+        if(!response.ok){
+
+            throw new Error("Delete failed.");
+
+        }
+
+
+        await load();
+
+
+    }catch(error){
+
+        alert(
+            "Message could not be deleted. Please check server.js."
+        );
+
+    }
+
+}
+
+
+/* Search Listener */
+
+search.addEventListener(
+    "input",
+    filterMessages
+);
+
+
+/* Refresh Buttons */
+
+document.getElementById("refresh").onclick =
+    load;
+
+document.getElementById("refresh2").onclick =
+    load;
+
+
+/* Logout */
+
+document.getElementById("logout").onclick =
+    async () => {
+
+        try{
+
+            await fetch("/logout", {
+                method:"POST",
+                credentials:"same-origin"
+            });
+
+        }catch(e){
+
+        }
+
+        location.href = "signin.html";
+
+    };
+
+
+/* Initial Load */
+
+load();
+
+</script>
+
+</body>
+</html>ss
